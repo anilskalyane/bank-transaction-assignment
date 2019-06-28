@@ -146,13 +146,14 @@ Response:
 
 ```
 ⇒  php artisan route:list
-+--------+----------------------+---------------------+------------------------------------------+------------------+------------+
-| Verb   | Path                 | NamedRoute          | Controller                               | Action           | Middleware |
-+--------+----------------------+---------------------+------------------------------------------+------------------+------------+
-| POST   | /api/auth/login      | api.auth.login      | App\Http\Controllers\Auth\AuthController | postLogin        |            |
-| GET    | /api                 | api.index           | App\Http\Controllers\APIController       | getIndex         | jwt.auth   |
-| GET    | /api/auth/user       | api.auth.user       | App\Http\Controllers\Auth\AuthController | getUser          | jwt.auth   |
-| PATCH  | /api/auth/refresh    | api.auth.refresh    | App\Http\Controllers\Auth\AuthController | patchRefresh     | jwt.auth   |
-| DELETE | /api/auth/invalidate | api.auth.invalidate | App\Http\Controllers\Auth\AuthController | deleteInvalidate | jwt.auth   |
-+--------+----------------------+---------------------+------------------------------------------+------------------+------------+
++----------+------------------------------+----------------------+-----------------------------------------------------+----------------------------+-----------------------------------+
+| Verb     | Path                         | NamedRoute           | Controller                                          | Action                     | Middleware                        |
++----------+------------------------------+----------------------+-----------------------------------------------------+----------------------------+-----------------------------------+
+| POST     | api/auth/login               | api.auth.login       | App\Http\Controllers\Auth\AuthController            | postLogin                  | api.controllers                   |
+| GET|HEAD | api/customer                 | api.index            | App\Http\Controllers\APIController                  | getIndex                   | api.controllers|api.auth          |
+| GET|HEAD | api/customer/auth/user       | api.auth.user        | App\Http\Controllers\Auth\AuthController            | getUser                    | api.controllers|api.auth          |
+| GET|HEAD | api/customer/transaction     | api.auth.transaction | App\Http\Controllers\Customer\TransactionController | getCustomerTranscationData | api.controllers|api.auth|api.auth |
+| PATCH    | api/customer/auth/refresh    | api.auth.refresh     | App\Http\Controllers\Auth\AuthController            | patchRefresh               | api.controllers|api.auth          |
+| DELETE   | api/customer/auth/invalidate | api.auth.invalidate  | App\Http\Controllers\Auth\AuthController            | deleteInvalidate           | api.controllers|api.auth          |
++----------+------------------------------+----------------------+-----------------------------------------------------+----------------------------+-----------------------------------+
 ```

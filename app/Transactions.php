@@ -107,4 +107,12 @@ class Transactions extends Model
          }
         return  $returnDatas->paginate(env('PAGINATE'));
     }
+
+    public static function getTransactionDetails($customer_id, $id){
+        return self::active()
+            ->where('customer_id', $customer_id)
+            ->where('id', $id)
+            ->with(['account_details', 'branch_details'])
+            ->first();
+    }
 }

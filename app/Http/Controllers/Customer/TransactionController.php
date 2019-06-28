@@ -40,7 +40,42 @@ class TransactionController extends Controller
                     $loggedInCustomer->id, $searchFilters, $orderBy)
             ]);
         } catch (\Exception $e){
-            return $e;
+            return new JsonResponse([
+                'message' => 'Something went wrong. Please try after sometime'
+            ], 422);
+        }
+    }
+
+    /**
+     * Get individual transaction details
+     * @param Request $request
+     * @return \Exception|JsonResponse
+     */
+    public function getCustomerTranscationDetails(Request $request)
+    {
+        try {
+            $requestData = $request->all();
+
+            if(!$request->has('transaction_id')){
+                return new JsonResponse([
+                    'status' => 'error',
+                    'message' => 'Transaction id is required'
+                ], 422);
+            }
+
+            $loggedInCustomer = JWTAuth::parseToken()->authenticate();
+            if (!$loggedInCustomer) {
+                return new JsonResponse([
+                    'message' => 'invalid_token'
+                ], Response::HTTP_UNAUTHORIZED);
+            }
+
+            return new JsonResponse([
+                'message' => 'Data processed successfully',
+                'data' => Transactions::getTransactionDetails(
+                    $loggedInCustomer->id, $requestData['transaction_id'])
+            ]);
+        } catch (\Exception $e){
             return new JsonResponse([
                 'message' => 'Something went wrong. Please try after sometime'
             ], 422);

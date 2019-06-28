@@ -49,6 +49,11 @@ $api->version('v1', function ($api) {
                 'uses' => 'App\Http\Controllers\Customer\TransactionController@getCustomerTranscationData',
                 'as' => 'api.auth.transaction'
             ]);
+
+            $api->get('/getDetails', [
+               'uses' => 'App\Http\Controllers\Customer\TransactionController@getCustomerTranscationDetails',
+                'as' => 'api.auth.transactionDetails'
+            ]);
         });
     });
 });
