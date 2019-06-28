@@ -91,7 +91,7 @@ Response:
 Request:
 
 ```sh
-curl -X GET http://localhost:8000/api/customer/transaction -H 'Accept: application/vnd.mini_assignment.v1+json' -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTU2MTY2MTE3NSwiZXhwIjoxNTYxNjY0Nzc1LCJuYmYiOjE1NjE2NjExNzUsImp0aSI6InpyVk96RzYzdVVRM1B5TXQifQ.Y6owvscYYnTPTarnxWlDMdalDw6OrzWH4KH9pn6XLX4' -H 'Content-Type: application/json' -H 'Postman-Token: bc79fc36-22e9-4d54-9ecc-868dccf14cc6' -H 'cache-control: no-cache' -d '{ "filters": { "transaction_type":"deposit", "transaction_amount": {"condition":">=", "value":"2000"}, "current_balance": {"condition":">", "value":"590000000"}, "dateFilter": {"from": "2019-06-06", "to": "2019-07-06"}}, "orderBy": [{"type": "transaction_amount","order": "desc"}, {"type": "transaction_type","order": "desc"}]}'
+curl -X GET http://localhost:8000/api/customer/transaction -H 'Accept: application/vnd.mini_assignment.v1+json' -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTU2MTY2MTE3NSwiZXhwIjoxNTYxNjY0Nzc1LCJuYmYiOjE1NjE2NjExNzUsImp0aSI6InpyVk96RzYzdVVRM1B5TXQifQ.Y6owvscYYnTPTarnxWlDMdalDw6OrzWH4KH9pn6XLX4' -H 'Content-Type: application/json' -H 'cache-control: no-cache' -d '{ "filters": { "transaction_type":"deposit", "transaction_amount": {"condition":">=", "value":"2000"}, "current_balance": {"condition":">", "value":"590000000"}, "dateFilter": {"from": "2019-06-06", "to": "2019-07-06"}}, "orderBy": [{"type": "transaction_amount","order": "desc"}, {"type": "transaction_type","order": "desc"}]}'
 ```
 
 Response:
@@ -138,6 +138,68 @@ Response:
         "total": 19
     }
 }                
+```
+
+- For customer Transaction details with search and sorting, you can check by sending a `GET` request to: `api/customer/transaction`.
+
+Request:
+
+```sh
+curl -X GET http://localhost:8000/api/customer/transaction/getDetails -H 'Accept: application/vnd.mini_assignment.v1+json' -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTU2MTY2MTE3NSwiZXhwIjoxNTYxNjY0Nzc1LCJuYmYiOjE1NjE2NjExNzUsImp0aSI6InpyVk96RzYzdVVRM1B5TXQifQ.Y6owvscYYnTPTarnxWlDMdalDw6OrzWH4KH9pn6XLX4' -H 'Content-Type: application/json' -H 'cache-control: no-cache' -d '{"transaction_id":"10"}'
+```
+
+Response:
+
+```
+{
+    "message": "Data processed successfully",
+    "data": {
+        "customer_id": 1,
+        "account_id": 1,
+        "branch_id": 1,
+        "transaction_type": "withdrawal",
+        "transaction_amount": -1000,
+        "other_details": null,
+        "created_at": "2019-06-27 08:01:38",
+        "updated_at": "2019-06-27 08:16:04",
+        "account_details": {
+            "account_number": "20195042931",
+            "account_status": 0,
+            "account_type": 1,
+            "current_balance": 59000,
+            "other_details": null,
+            "created_at": "2019-06-27 07:53:10",
+            "updated_at": "2019-06-27 09:06:46",
+            "account_type_details": {
+                "account_type_code": "saving",
+                "description": "saving",
+                "created_at": "2019-06-27 07:57:58",
+                "updated_at": "2019-06-27 07:57:58"
+            }
+        },
+        "branch_details": {
+            "address_id": 1,
+            "name": "Branch Title",
+            "code": "BT2019GT",
+            "other_details": null,
+            "rank": 0,
+            "created_at": "2019-06-27 07:22:27",
+            "updated_at": "2019-06-27 07:22:27",
+            "address_details": {
+                "line_1": "Address Line 1, Address Line 1, Address Line 1",
+                "line_2": "Address Line 2, Address Line 2, Address Line 2",
+                "town_city": "Bangalore",
+                "zip_postcode": "560075",
+                "state_province_country": "Karnataka",
+                "country": "India",
+                "other_details": null,
+                "rank": 0,
+                "created_at": "2019-06-27 07:20:36",
+                "updated_at": "2019-06-27 07:20:36"
+            }
+        }
+    }
+}
 ```
 
 - To refresh your token, simply send a `PATCH` request to `/api/auth/refresh`.
